@@ -1,7 +1,7 @@
 <div class="deznav">
     <div class="deznav-scroll">
         <ul class="metismenu" id="menu">
-            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+            {{-- <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-networking"></i>
                     <span class="nav-text">Dashboard</span>
                 </a>
@@ -40,15 +40,17 @@
                     <i class="flaticon-381-settings-2"></i>
                     <span class="nav-text">Treasure</span>
                 </a>
-            </li>
+            </li> --}}
             <li>
                 <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class="flaticon-381-television"></i>
                     <span class="nav-text">Product</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('product.category.index') }}">Category</a></li>
-                    <li><a href="">Card</a></li>
+                    <li><a href="{{ route('product.index') }}">Add Product</a></li>
+                    <li><a href="{{ route('product.category.index') }}">Depertment</a></li>
+                    <li><a href="{{ route('product.subcategory.index') }}">Category</a></li>
+                    <li><a href="{{ route('product.title.index') }}">Sub-Category</a></li>
                 </ul>
             </li>
         </ul>

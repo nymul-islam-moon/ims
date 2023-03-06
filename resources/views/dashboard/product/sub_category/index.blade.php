@@ -18,7 +18,7 @@
                 </div>
                 <div class="card-body">
                     <div class="basic-form">
-                        <form action="" method="POST">
+                        <form action="{{ route('product.subcategory.store') }}" method="POST">
                             @csrf
                             @method('POST')
                             <div class="form-row">
@@ -40,9 +40,9 @@
                                     <label>Category</label>
                                     <select class="form-control default-select" name="category_id" id="category_id" tabindex="-98">
                                         <option selected>-- Select Category --</option>
-                                        <option value="1">1</option>
-                                        <option value="2">3</option>
-                                        <option value="3">4</option>
+                                        @foreach ($productCategorys as $productCategory)
+                                            <option value="{{ $productCategory->id }}">{{ $productCategory->name }}</option>
+                                        @endforeach
                                     </select>
 
                                     @error('category_id')
@@ -75,12 +75,13 @@
                                     <th>Action</th>
                                     <th class="width80">#</th>
                                     <th>Code</th>
-                                    <th>Category Name</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
                                     <th>STATUS</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($productCategorys as $key=> $productCategory)
+                                @foreach ($productSubCategories as $key=> $productSubCategorie)
                                 <tr>
                                     <td>
                                         <div class="dropdown">
@@ -88,8 +89,8 @@
                                                 <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="5" cy="12" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="19" cy="12" r="2"/></g></svg>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="{{ route('product.category.edit', $productCategory->id) }}">Edit</a>
-                                                <form action="{{ route('product.category.destroy', $productCategory->id) }}" method="post">
+                                                <a class="dropdown-item" href="{{ route('product.subcategory.edit', $productSubCategorie->id) }}">Edit</a>
+                                                <form action="{{ route('product.subcategory.destroy', $productSubCategorie->id) }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="dropdown-item" href="#">Delete</button>
@@ -98,9 +99,9 @@
                                         </div>
                                     </td>
                                     <td><strong>{{ $key+1 }}</strong></td>
-                                    <td>{{ $productCategory->code }}</td>
-                                    <td>{{ $productCategory->category_id }}</td>
-                                    <td>{{ $productCategory->name }}</td>
+                                    <td>{{ $productSubCategorie->code }}</td>
+                                    <td>{{ $productSubCategorie->name }}</td>
+                                    <td>{{ $productSubCategorie->rel_to_category->name }}</td>
                                     <td><span class="badge light badge-success">Successful</span></td>
                                 </tr>
                             @endforeach

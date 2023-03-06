@@ -59,14 +59,10 @@ class ProductCategoryController extends Controller
         if(count($name) > 1){
 
             foreach($name as $key=> $value){
-                $code_name.= substr($value, 0, 3);
+                $code_name.= substr($value, 0, 3) . '-';
 
-                if (!$key == count($name) - 1){
-                    $code_name.='-';
-                }else {
-                    $code_name.= '-' .$latest_id;
-                }
             }
+            $code_name.= $latest_id;
 
         }else{
             $code_name = substr($name[0], 0, 3) . '-' . $latest_id;

@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSubCategoryController;
+use App\Http\Controllers\ProductTitleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,14 @@ Route::prefix('/dashboard')->group(function () {
 
     Route::prefix('/product')->group(function () {
 
+        Route::controller(ProductController::class)->prefix('/')->group(function () {
+            Route::get('/', 'index')->name('product.index');
+            Route::post('/', 'store')->name('product.store');
+            Route::get('/{product}/edit', 'edit')->name('product.edit');
+            Route::put('/{product}/update', 'update')->name('product.update');
+            Route::delete('/{product}/destroy', 'destroy')->name('product.destroy');
+        });
+
         Route::controller(ProductCategoryController::class)->prefix('/category')->group(function () {
             Route::get('/', 'index')->name('product.category.index');
             Route::post('/', 'store')->name('product.category.store');
@@ -44,6 +54,17 @@ Route::prefix('/dashboard')->group(function () {
             Route::put('/{productSubCategory}/update', 'update')->name('product.subcategory.update');
             Route::delete('/{productSubCategory}/destroy', 'destroy')->name('product.subcategory.destroy');
         });
+
+        Route::controller(ProductTitleController::class)->prefix('/title')->group(function () {
+            Route::get('/', 'index')->name('product.title.index');
+            Route::post('/', 'store')->name('product.title.store');
+            Route::get('/{productTitle}/edit', 'edit')->name('product.title.edit');
+            Route::put('/{productTitle}/update', 'update')->name('product.title.update');
+            Route::delete('/{productTitle}/destroy', 'destroy')->name('product.title.destroy');
+        });
+
+
+
     });
     // Route::controller(CashController::class)->prefix('/cash')->group(function () {
     //     Route::get('/', 'index')->name('income.cash.index');

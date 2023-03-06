@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductTitle;
+use App\Http\Requests\StoreProductTitleRequest;
+use App\Http\Requests\UpdateProductTitleRequest;
 use App\Models\ProductSubCategory;
-use App\Http\Requests\StoreProductSubCategoryRequest;
-use App\Http\Requests\UpdateProductSubCategoryRequest;
-use App\Models\ProductCategory;
 
-class ProductSubCategoryController extends Controller
+class ProductTitleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class ProductSubCategoryController extends Controller
      */
     public function index()
     {
-        $productCategorys = ProductCategory::all()->sortDesc();
         $productSubCategories = ProductSubCategory::all()->sortDesc();
-        return view('dashboard.product.sub_category.index', compact('productCategorys', 'productSubCategories'));
+        $productTitles = ProductTitle::all()->sortDesc();
+        return view('dashboard.product.title.index', compact('productSubCategories', 'productTitles'));
     }
 
     /**
@@ -34,10 +34,10 @@ class ProductSubCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreProductSubCategoryRequest  $request
+     * @param  \App\Http\Requests\StoreProductTitleRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductSubCategoryRequest $request)
+    public function store(StoreProductTitleRequest $request)
     {
         $formData = $request->validated();
 
@@ -45,9 +45,9 @@ class ProductSubCategoryController extends Controller
 
         $code_name = '';
 
-        $objectName = new ProductSubCategory();
+        $objectName = new ProductTitle();
 
-        if (ProductSubCategory::where('id', 1)->first()) {
+        if (ProductTitle::where('id', 1)->first()) {
             $latest_id = $objectName->latest()->first()->id;
             $latest_id = $latest_id + 1;
         } else {
@@ -73,17 +73,17 @@ class ProductSubCategoryController extends Controller
 
         // Code generation End
 
-        $productSubCategory = ProductSubCategory::create($formData);
-        return redirect()->route('product.subcategory.index');
+        $ProductTitle = ProductTitle::create($formData);
+        return redirect()->route('product.title.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ProductSubCategory  $productSubCategory
+     * @param  \App\Models\ProductTitle  $productTitle
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductSubCategory $productSubCategory)
+    public function show(ProductTitle $productTitle)
     {
         //
     }
@@ -91,38 +91,41 @@ class ProductSubCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProductSubCategory  $productSubCategory
+     * @param  \App\Models\ProductTitle  $productTitle
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProductSubCategory $productSubCategory)
+    public function edit(ProductTitle $productTitle)
     {
-        $productCategorys = ProductCategory::all()->sortDesc();
-        return view('dashboard.product.sub_category.edit', compact('productSubCategory', 'productCategorys'));
+        $productSubCategories = ProductSubCategory::all()->sortDesc();
+        $productTitles = ProductTitle::all()->sortDesc();
+        return view('dashboard.product.title.edit', compact('productTitle', 'productSubCategories', 'productTitles'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateProductSubCategoryRequest  $request
-     * @param  \App\Models\ProductSubCategory  $productSubCategory
+     * @param  \App\Http\Requests\UpdateProductTitleRequest  $request
+     * @param  \App\Models\ProductTitle  $productTitle
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductSubCategoryRequest $request, ProductSubCategory $productSubCategory)
+    public function update(UpdateProductTitleRequest $request, ProductTitle $productTitle)
     {
         $formData = $request->validated();
-        $productSubCategory->update($formData);
-        return redirect(route('product.subcategory.index'));
+        $productTitle->update($formData);
+
+        return redirect()->route('product.title.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProductSubCategory  $productSubCategory
+     * @param  \App\Models\ProductTitle  $productTitle
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProductSubCategory $productSubCategory)
+    public function destroy(ProductTitle $productTitle)
     {
-        $productSubCategory->delete();
-        return redirect(route('product.subcategory.index'));
+        $productTitle->delete();
+
+        return redirect()->route('product.title.index');
     }
 }
