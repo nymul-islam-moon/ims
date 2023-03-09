@@ -24,7 +24,9 @@ class UpdateProductCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' =>'required|max:255|unique:product_categories,name,' . $this->productCategory->id,
+            'date' => 'required',
+            'depertment_id' => 'required',
         ];
     }
 }

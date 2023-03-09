@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ProductCategory;
 use App\Http\Requests\StoreProductCategoryRequest;
 use App\Http\Requests\UpdateProductCategoryRequest;
+use App\Interface\CodeGenerationServiceInterface;
+use App\Models\ProductDepertment;
 
 class ProductCategoryController extends Controller
 {
@@ -16,7 +18,8 @@ class ProductCategoryController extends Controller
     public function index()
     {
         $productCategorys = ProductCategory::all()->sortDesc();
-        return view('dashboard.product.category.index', compact('productCategorys'));
+        $productDepertments = ProductDepertment::all()->sortDesc();
+        return view('dashboard.product.category.index', compact('productCategorys', 'productDepertments'));
     }
 
     /**
@@ -35,46 +38,18 @@ class ProductCategoryController extends Controller
      * @param  \App\Http\Requests\StoreProductCategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductCategoryRequest $request)
+    public function store(StoreProductCategoryRequest $request, CodeGenerationServiceInterface $codeGenerationService)
     {
         $formData = $request->validated();
 
-        // code generation start
-
-        $code_name = '';
-
         $objectName = new ProductCategory();
 
-        if (ProductCategory::where('id', 1)->first()) {
-            $latest_id = $objectName->latest()->first()->id;
-            $latest_id = $latest_id + 1;
-        } else {
-            $latest_id = 1;
-        }
-
-        $table_name = $objectName->getTable();
-        $name = explode('_', $table_name);
-
-
-        if(count($name) > 1){
-
-            foreach($name as $key=> $value){
-                $code_name.= substr($value, 0, 3) . '-';
-
-            }
-            $code_name.= $latest_id;
-
-        }else{
-            $code_name = substr($name[0], 0, 3) . '-' . $latest_id;
-        }
-
-        $formData['code'] = strtoupper($code_name);
-
-        // Code generation End
+        $formData['code'] =  $codeGenerationService->generate($objectName);
+        $formData['date'] = date('Y-m-d', strtotime($formData['date']));
 
         ProductCategory::create($formData);
 
-        return back();
+        return redirect()->route('product.category.index');
 
     }
 
@@ -97,7 +72,8 @@ class ProductCategoryController extends Controller
      */
     public function edit(ProductCategory $productCategory)
     {
-        return view('dashboard.product.category.edit', compact('productCategory'));
+        $productDepertments = ProductDepertment::all()->sortDesc();
+        return view('dashboard.product.category.edit', compact('productCategory', 'productDepertments'));
     }
 
     /**

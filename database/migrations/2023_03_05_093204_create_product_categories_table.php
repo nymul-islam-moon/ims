@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('code')->nullable();
             $table->string('name');
+            $table->date('date');
+            $table->unsignedBigInteger('depertment_id');
             $table->timestamps();
         });
     }

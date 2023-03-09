@@ -37,3 +37,9 @@
     <script src="{{ asset('assets/js/plugins-init/material-date-picker-init.js') }}"></script>
     <!-- Pickdate -->
     <script src="{{ asset('assets/js/plugins-init/pickadate-init.js') }}"></script>
+
+
+
+    {{-- Select2 --}}
+    <script src="{{ asset('assets/vendor/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('assets/js/plugins-init/select2-init.js') }}"></script>
