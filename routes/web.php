@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepertmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
@@ -29,6 +30,14 @@ Route::prefix('/dashboard')->group(function () {
     // });
 
     Route::prefix('/product')->group(function () {
+
+        Route::controller(DepertmentController::class)->prefix('/depertment')->group(function () {
+            Route::get('/', 'index')->name('product.depertment.index');
+            Route::post('/', 'store')->name('product.depertment.store');
+            Route::get('/{depertment}/edit', 'edit')->name('product.depertment.edit');
+            Route::put('/{depertment}/update', 'update')->name('product.depertment.update');
+            Route::delete('/{depertment}/destroy', 'destroy')->name('product.depertment.destroy');
+        });
 
         Route::controller(ProductController::class)->prefix('/')->group(function () {
             Route::get('/', 'index')->name('product.index');
