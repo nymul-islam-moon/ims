@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Service\CodeGenerationService;
 use Illuminate\Support\ServiceProvider;
+use App\Interface\CodeGenerationServiceInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        app()->bind(CodeGenerationServiceInterface::class, CodeGenerationService::class);
     }
 
     /**

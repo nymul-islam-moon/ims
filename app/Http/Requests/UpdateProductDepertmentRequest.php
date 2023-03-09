@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreDepertmentRequest extends FormRequest
+class UpdateProductDepertmentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +25,7 @@ class StoreDepertmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' =>'required|max:255',
+            'name' =>'required|max:255|unique:product_depertments,name,' . $this->productDepertment->id,
             'date' => 'required',
         ];
     }

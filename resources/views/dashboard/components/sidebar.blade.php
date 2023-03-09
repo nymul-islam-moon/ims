@@ -48,8 +48,8 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('product.index') }}">Add Product</a></li>
-                    <li><a href="{{ route('product.category.index') }}">Depertment</a></li>
-                    <li><a href="{{ route('product.subcategory.index') }}">Category</a></li>
+                    <li><a href="{{ route('product.depertment.index') }}">Depertment</a></li>
+                    <li><a href="{{ route('product.category.store') }}">Category</a></li>
                     <li><a href="{{ route('product.title.index') }}">Sub-Category</a></li>
                 </ul>
             </li>

@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\DepertmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductDepertmentController;
 use App\Http\Controllers\ProductSubCategoryController;
 use App\Http\Controllers\ProductTitleController;
 
@@ -31,12 +31,12 @@ Route::prefix('/dashboard')->group(function () {
 
     Route::prefix('/product')->group(function () {
 
-        Route::controller(DepertmentController::class)->prefix('/depertment')->group(function () {
+        Route::controller(ProductDepertmentController::class)->prefix('/depertment')->group(function () {
             Route::get('/', 'index')->name('product.depertment.index');
             Route::post('/', 'store')->name('product.depertment.store');
-            Route::get('/{depertment}/edit', 'edit')->name('product.depertment.edit');
-            Route::put('/{depertment}/update', 'update')->name('product.depertment.update');
-            Route::delete('/{depertment}/destroy', 'destroy')->name('product.depertment.destroy');
+            Route::get('/{productDepertment}/edit', 'edit')->name('product.depertment.edit');
+            Route::put('/{productDepertment}/update', 'update')->name('product.depertment.update');
+            Route::delete('/{productDepertment}/destroy', 'destroy')->name('product.depertment.destroy');
         });
 
         Route::controller(ProductController::class)->prefix('/')->group(function () {
